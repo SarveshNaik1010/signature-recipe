@@ -1,13 +1,18 @@
 import { supabase } from "../supabase/supabaseClient";
 
 export async function getRecipes() {
-  const { data, error } = await supabase.from("recipe").select(`
+  const { data, error } = await supabase
+    .from("recipe")
+    .select(
+      `
       *,
       user:user (
         id,
         username
       )
-    `);
+    `
+    )
+    .order("created_at", { ascending: false });
 
   console.log(error, data);
 
